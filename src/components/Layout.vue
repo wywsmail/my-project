@@ -99,6 +99,19 @@ const isActive = (to) => to === activeItem.value.to;
             />
             <div class="font-medium tracking-wide">Alec彥文</div>
           </div>
+          <ul>
+            <template v-for="item in userMenuItems" :key="item.text">
+              <li v-if="item.mobile">
+                <component
+                  :is="item.tag"
+                  class="flex items-center px-4 py-3 w-full text-violet-400 hover:text-white"
+                  @click="item.onClick"
+                >
+                  {{ item.text }}
+                </component>
+              </li>
+            </template>
+          </ul>
         </div>
 
         <!-- 用戶名稱區塊-電腦-->
@@ -123,35 +136,27 @@ const isActive = (to) => to === activeItem.value.to;
             >
               <heroicons-outline-dots-vertical class="w-4 h-4" />
             </MenuButton>
-            <MenuItems
-              class="absolute left-full bottom-0 ml-2 bg-white rounded-md shadow-lg text-violet-600"
-            >
-              <MenuItem
-                v-slot="{ active }"
-                v-for="item in userMenuItems"
-                :key="item.text"
+
+            <TransitionZoom>
+              <MenuItems
+                class="absolute left-full bottom-0 ml-2 w-32 flex flex-col bg-white rounded-md shadow-lg text-violet-600 overflow-hidden origin-bottom-left"
               >
-                <!-- <a :class="{ 'bg-blue-500': active }" href="/account-settings">
-                  Account settings
-                </a> -->
-                <RouterLink to="/setting">個人資料</RouterLink>
-                <!-- <component
-                  :is="item.tag"
-                  :to="item.to"
-                  class="px-3 py-2 text-gray-700 text-left text-base font-normal"
-                  :class="active ? 'bg-gray-100' : ''"
-                  @click="item.onClick"
-                ></component> -->
-              </MenuItem>
-              <!-- <MenuItem v-slot="{ active }">
-                <a :class="{ 'bg-blue-500': active }" href="/account-settings">
-                  Documentation
-                </a>
-              </MenuItem> -->
-              <!-- <MenuItem disabled>
-                <span class="opacity-75">Invite a friend (coming soon!)</span>
-              </MenuItem> -->
-            </MenuItems>
+                <MenuItem
+                  v-slot="{ active }"
+                  v-for="item in userMenuItems"
+                  :key="item.text"
+                >
+                  <component
+                    :is="item.tag"
+                    :to="item.to"
+                    class="px-3 py-2 text-gray-700 text-left text-base font-normal"
+                    :class="active ? 'bg-violet-100' : ''"
+                    @click="item.onClick"
+                    >{{ item.text }}</component
+                  >
+                </MenuItem>
+              </MenuItems>
+            </TransitionZoom>
           </Menu>
         </div>
       </div>
