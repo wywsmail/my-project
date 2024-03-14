@@ -1,25 +1,28 @@
 <template>
   <Layout>
     <div class="p-4">
-      <DangerButton #click="deletePost">刪除</DangerButton>
+      <PrimaryButton @click="open">顯示</PrimaryButton>
     </div>
   </Layout>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import {
+  notify,
+  successNotify,
+  warningNotify,
+  errorNotify,
+} from "@/composables/useNotification";
+// import { notify } from "@kyvg/vue3-notification";
 
-const deletePost = () => {
-  // useConfirm("確定要刪除嗎？").then(result => {
-  //   if (result) {
-  //     console.log("刪除");
-  //   }
-  // })
+const open = () => {
+  warningNotify("更新成功", "已經更新成功了");
+  // console.log("open");
+  // notify({
+  //   // type: "success",
+  //   title: "更新",
+  //   text: "已經更新成功了",
+  //   duration: 10000000,
+  // });
 };
-
-// const showModal = ref(false);
-// const openModal = (value) => {
-//   console.log(value);
-//   showModal.value = value;
-// };
 </script>

@@ -1,15 +1,19 @@
 <template>
-  <div>
-    <ConfirmModal v-model="showModal" :title="confirmTitle"></ConfirmModal>
-  </div>
+  <ConfirmModal
+    v-model="showModal"
+    :title="confirmTitle"
+    @success="handleSuccess"
+    @cancel="handleCancel"
+  ></ConfirmModal>
 </template>
 
 <script setup>
-// import { ref } from "vue";
 import { useConfirmModal } from "@/composables/useConfirmModal";
 // const { useConfirmModal, useConfirm } = useConfirmModal();
-const { ...useConfirmModal } = useConfirmModal();
-// const showModal = ref(true);
+// const { ...useConfirmModal } = useConfirmModal();
+const { showModal, confirmTitle, handleSuccess, handleCancel } =
+  useConfirmModal();
+// const showModal = ref(false);
 // const confirmTitle = ref("");
 // const openModal = (value) => {
 //   console.log(value);

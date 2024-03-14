@@ -1,39 +1,3 @@
-<script setup>
-import { RouterLink, useRoute, useRouter } from "vue-router";
-import { ref, computed } from "vue";
-import HeroiconsOutlineHome from "~icons/heroicons-outline/home";
-import HeroiconsOutlineDocumentText from "~icons/heroicons-outline/document-text";
-import HeroiconsOutlineUser from "~icons/heroicons-outline/user";
-
-const route = useRoute();
-const router = useRouter();
-const showMenu = ref(false);
-const toggleMenu = () => {
-  showMenu.value = !showMenu.value;
-};
-const menuItems = [
-  { to: "/", text: "首頁", icon: HeroiconsOutlineHome },
-  { to: "/posts", text: "文章", icon: HeroiconsOutlineDocumentText },
-  { to: "/setting", text: "個人資料", icon: HeroiconsOutlineUser },
-];
-const userMenuItems = [
-  { tag: "RouterLink", to: "/setting", text: "個人資料" },
-  {
-    tag: "button",
-    text: "登出",
-    mobile: true,
-    onClick: () => {
-      router.push("/login");
-    },
-  },
-];
-
-const activeItem = computed(() =>
-  [...menuItems].reverse().find((item) => route.path.startsWith(item.to))
-);
-const isActive = (to) => to === activeItem.value.to;
-</script>
-
 <template>
   <div class="flex flex-col sm:flex-row min-h-screen">
     <!-- 左側選單 -->
@@ -162,10 +126,46 @@ const isActive = (to) => to === activeItem.value.to;
       </div>
     </div>
     <!-- 右側內容 -->
-    <div class="flex-grow min-w-0">
+    <div class="flex-grow min-w-0 bg-gray-50 p-6 sm:px-10 sm:py-8">
       <div class="overflow-x-auto">
         <slot></slot>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { RouterLink, useRoute, useRouter } from "vue-router";
+import { ref, computed } from "vue";
+import HeroiconsOutlineHome from "~icons/heroicons-outline/home";
+import HeroiconsOutlineDocumentText from "~icons/heroicons-outline/document-text";
+import HeroiconsOutlineUser from "~icons/heroicons-outline/user";
+
+const route = useRoute();
+const router = useRouter();
+const showMenu = ref(false);
+const toggleMenu = () => {
+  showMenu.value = !showMenu.value;
+};
+const menuItems = [
+  { to: "/", text: "首頁", icon: HeroiconsOutlineHome },
+  { to: "/posts", text: "文章", icon: HeroiconsOutlineDocumentText },
+  { to: "/setting", text: "個人資料", icon: HeroiconsOutlineUser },
+];
+const userMenuItems = [
+  { tag: "RouterLink", to: "/setting", text: "個人資料" },
+  {
+    tag: "button",
+    text: "登出",
+    mobile: true,
+    onClick: () => {
+      router.push("/login");
+    },
+  },
+];
+
+const activeItem = computed(() =>
+  [...menuItems].reverse().find((item) => route.path.startsWith(item.to))
+);
+const isActive = (to) => to === activeItem.value.to;
+</script>
